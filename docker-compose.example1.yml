@@ -2,7 +2,15 @@ services:
   example:
     container_name: example
     image: debian
+    command: sleep infinity
     network_mode: "service:dhcp"
+    healthcheck:
+      # Ensure that network interface is still attached
+      test: ["CMD-SHELL", "ifconfig | grep -q eth || kill 1"]
+      interval: 1m
+      timeout: 3s
+      retries: 1
+      start_period: 30s
 
   dhcp:
     container_name: example-dhcp

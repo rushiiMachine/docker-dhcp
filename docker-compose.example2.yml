@@ -2,6 +2,7 @@ services:
   example:
     container_name: example
     image: ubuntu
+    command: sleep infinity
     hostname: example
     mac_address: "00:00:00:00:00:00" # TODO: generate a unique MAC address
     networks:
@@ -16,6 +17,13 @@ services:
       - NET_ADMIN
     environment:
       INTERFACE: eth0 # TODO: specify host network interface
+    healthcheck:
+      # Ensure that network interface is still attached
+      test: ["CMD-SHELL", "ifconfig | grep -q eth || kill 1"]
+      interval: 1m
+      timeout: 3s
+      retries: 1
+      start_period: 30s
     
 
 networks:

@@ -4,6 +4,13 @@ services:
     image: debian
     network_mode: "service:dhcp"
     command: sleep infinity
+    healthcheck:
+      # Ensure that network interface is still attached
+      test: ["CMD-SHELL", "ifconfig | grep -q eth || kill 1"]
+      interval: 1m
+      timeout: 3s
+      retries: 1
+      start_period: 30s
 
   dhcp:
     container_name: example-dhcp
