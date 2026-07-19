@@ -35,8 +35,8 @@ See [this](./docker-compose.example2.yml) Docker compose setup for the 2nd optio
 ## Healthcheck
 
 Due to an oversight in the Docker engine, shared network namespace interfaces are not reattached after
-the host contianer is restarted or recreated. As such, the only way to ensure that the "child" containers
-that rely on the interface also get recreated is a healthcheck:
+the host container is restarted/recreated. As such, the only way to ensure that "child" containers relying
+on that interface, also get recreated, is a healthcheck:
 
 ```yml
 healthcheck:
@@ -48,5 +48,5 @@ healthcheck:
   start_period: 30s
 ```
 
-As such, if using method 1 as shown above, the target container must have `ifconfig` installed,
+As such, if using the aforementioned method 1, the target container must either have `ifconfig` installed,
 or `iproute2`, in which case `ifconfig` should be changed to `ip addr` in the healthcheck.
