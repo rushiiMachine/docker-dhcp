@@ -1,0 +1,28 @@
+services:
+  example:
+    container_name: example
+    image: debian
+    network_mode: "service:dhcp"
+    command: sleep infinity
+
+  dhcp:
+    container_name: example-dhcp
+    image: ghcr.io/rushiimachine/docker-dhcp:test
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    cap_add:
+      - NET_ADMIN
+    networks:
+      example-network:
+    hostname: example
+    mac_address: "4e:72:74:0a:b5:3b"
+
+
+networks:
+  example-network:
+    driver: macvlan
+    driver_opts:
+      parent: eth0
+    enable_ipv6: true

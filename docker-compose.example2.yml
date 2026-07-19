@@ -1,0 +1,26 @@
+services:
+  example:
+    container_name: example
+    image: ubuntu
+    hostname: example
+    mac_address: "00:00:00:00:00:00" # TODO: generate a unique MAC address
+    networks:
+      example-network:
+
+  dhcp:
+    container_name: example-dhcp
+    image: ghcr.io/rushiimachine/docker-dhcp:latest
+    restart: always
+    network_mode: "service:example"
+    cap_add:
+      - NET_ADMIN
+    environment:
+      INTERFACE: eth0 # TODO: specify host network interface
+    
+
+networks:
+  example-network:
+    driver: macvlan
+    driver_opts:
+      parent: eth0 # TODO: specify host network interface
+    enable_ipv6: true
