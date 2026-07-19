@@ -14,7 +14,7 @@ services:
 
   dhcp:
     container_name: example-dhcp
-    image: ghcr.io/rushiimachine/docker-dhcp:latest
+    image: ghcr.io/rushiimachine/docker-dhcp:1
     restart: always
     cap_add:
       - NET_ADMIN
