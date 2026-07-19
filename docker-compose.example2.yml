@@ -16,7 +16,7 @@ services:
     cap_add:
       - NET_ADMIN
     environment:
-      INTERFACE: eth0 # TODO: specify host network interface
+      INTERFACE: eth0 # TODO: specify network interface inside container (usually ethN, defaults to eth0)
     healthcheck:
       # Ensure that network interface is still attached
       test: ["CMD-SHELL", "ifconfig | grep -q eth || kill 1"]

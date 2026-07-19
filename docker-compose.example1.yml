@@ -23,7 +23,7 @@ services:
     hostname: example # TODO: specify hostname to announce
     mac_address: "00:00:00:00:00:00" # TODO: generate a unique MAC address
     environment:
-      INTERFACE: eth0 # TODO: specify host network interface
+      INTERFACE: eth0 # TODO: specify network interface inside container (usually ethN, defaults to eth0)
 
 
 networks:
